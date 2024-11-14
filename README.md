@@ -1,4 +1,19 @@
 # notes-app
+
+Primärfärger:
+
+Ljusgrå: #F5F5F5 (bakgrund)
+Mörkgrå: #333333 (text och ikoner)
+Sekundärfärger:
+
+Mild blå: #A8DADC (interaktiva element som knappar och länkar)
+Grågrön: #457B9D (rubriker och viktiga markeringar)
+Accentfärger:
+
+Pastellgul: #F1FAEE (notifikationer eller highlights)
+Sval lavendel: #E5E5FF (bakgrund för markerade anteckningar eller utvalda element)
+
+
 Boiler room project
 
 Boiler Room Vecka 46: Bygg en Anteckningsapp - JSON och Datahantering med LocalStorage

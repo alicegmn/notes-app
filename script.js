@@ -1,6 +1,10 @@
 // An array holding all my note objects
 let notes = [];
 
+window.addEventListener("load", () => {
+    getNotesFromLocalStorage();
+});
+
 //Functions
 
 function addNote() {
@@ -24,8 +28,12 @@ function addNote() {
     document.getElementById("title").value = ""; // Töm titel-fältet
     document.getElementById("content").value = ""; // Töm innehåll-fältet
     document.getElementById("category").selectedIndex = 0; // Återställ kategori till första alternativet
-        
-    displayNote(note);
+    
+    saveNotesToLocalStorage(); // save updated list to local storage
+
+    displayNote(note); // Calls display function to show new note on UI
+
+    
 }
 
 function displayNote(note) {
@@ -34,9 +42,9 @@ function displayNote(note) {
     let noteItem = document.createElement("article");
     noteItem.className = "note";
 
-    let noteId = document.createElement("p");
-    noteId.className = "noteId";
-    noteId.textContent = note.id;
+    let noteTimestamp = document.createElement("p")
+    noteTimestamp.className = "noteTimestamp";
+    noteTimestamp.textContent = note.timestamp;
 
     let noteTitle = document.createElement("h3");
     noteTitle.className = "noteContent";
@@ -50,6 +58,10 @@ function displayNote(note) {
     noteCategory.className = "noteCategory";
     noteCategory.textContent = note.category;
 
+    let noteId = document.createElement("p");
+    noteId.className = "noteId";
+    noteId.textContent = note.id;
+
     let editButton = document.createElement("button");
     editButton.className = "editButton";
     editButton.textContent = "Edit";
@@ -57,6 +69,12 @@ function displayNote(note) {
     let deleteButton = document.createElement("button");
     deleteButton.className = "deleteButton";
     deleteButton.textContent = "Delete";
+
+    deleteButton.addEventListener("click", () => {
+        notes = notes.filter((item) => item.id !== note.id);
+        notesContainer.removeChild(noteItem);
+        saveNotesToLocalStorage();
+    });
 
     if (note.category === "#school") {
         noteItem.id = "schoolNote"
@@ -66,18 +84,41 @@ function displayNote(note) {
         noteItem.id = "otherNote"
     }
 
-    noteItem.appendChild(noteId);
+    noteItem.appendChild(noteTimestamp);
     noteItem.appendChild(noteTitle);
     noteItem.appendChild(noteContent);
     noteItem.appendChild(noteCategory);
+    noteItem.appendChild(noteId);
     noteItem.appendChild(editButton);
     noteItem.appendChild(deleteButton);
     notesContainer.insertBefore(noteItem, notesContainer.firstChild);
 }
+
+//
+function saveNotesToLocalStorage() {
+    localStorage.setItem("notes", JSON.stringify(notes));
+}
+
+function getNotesFromLocalStorage() {
+    const storedNotes = localStorage.getItem("notes");
+    if (storedNotes) {
+      notes = JSON.parse(storedNotes); // goes through each note
+       notes.forEach((note) => displayNote(note)); // each note is displayed on the screen
+    }
+  }
 
 //Event listeners
 
 document.getElementById("noteForm").addEventListener("submit", function(event) {
     event.preventDefault();
     addNote();
+});
+
+
+//Rensar local storage
+document.getElementById("clearButton").addEventListener("click", (event) => {
+    localStorage.clear(); // Rensa local storage
+    notes = []; // Töm notes-arrayen
+    const notesContainer = document.getElementById("notes-container");
+    notesContainer.innerHTML = ""; // Ta bort alla anteckningar från UI
 });

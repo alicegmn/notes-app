@@ -1,5 +1,6 @@
 // An array holding all my note objects
 let notes = [];
+let editingNoteId = null; // Variabel för att hålla reda på redigeringstillstånd
 
 window.addEventListener("load", () => {
     getNotesFromLocalStorage();
@@ -17,23 +18,26 @@ function addNote() {
         title: noteTitle,
         content: noteContent,
         category: "#" + noteCategory,
-        id: "#" + notes.length,
+        id: editingNoteId ? editingNoteId : "#" + notes.length,
         timestamp: noteTime
     };
 
-    notes.push(note);
-    
-    console.log(notes);
+    // Om det finns en anteckning att redigera, uppdatera den
+    if (editingNoteId) {
+        const index = notes.findIndex(item => item.id === editingNoteId);
+        notes[index] = note; // Uppdatera anteckningen
+        editingNoteId = null; // Återställ redigerings-ID
+    } else {
+        notes.push(note); // Lägg till ny anteckning
+    }
 
-    document.getElementById("title").value = ""; // Töm titel-fältet
-    document.getElementById("content").value = ""; // Töm innehåll-fältet
-    document.getElementById("category").selectedIndex = 0; // Återställ kategori till första alternativet
-    
-    saveNotesToLocalStorage(); // save updated list to local storage
+    // Rensa formuläret
+    document.getElementById("title").value = "";
+    document.getElementById("content").value = "";
+    document.getElementById("category").selectedIndex = 0;
 
-    displayNote(note); // Calls display function to show new note on UI
-
-    
+    saveNotesToLocalStorage();
+    displayNote(note);
 }
 
 function displayNote(note) {
@@ -92,6 +96,22 @@ function displayNote(note) {
     noteItem.appendChild(editButton);
     noteItem.appendChild(deleteButton);
     notesContainer.insertBefore(noteItem, notesContainer.firstChild);
+
+    // Lägg till event listener för edit-knappen
+    editButton.addEventListener("click", () => {
+        // Fyll i formuläret med anteckningens data
+        document.getElementById("title").value = note.title;
+        document.getElementById("content").value = note.content;
+        document.getElementById("category").value = note.category.substring(1); // Ta bort '#' från kategorin
+
+        // Spara ID:t för den anteckning som ska redigeras
+        editingNoteId = note.id; // Spara det ursprungliga ID:t
+
+        // Ta bort anteckningen från listan för att förbereda för uppdatering
+        notes = notes.filter((item) => item.id !== note.id);
+        notesContainer.removeChild(noteItem);
+        saveNotesToLocalStorage();
+    });
 }
 
 //

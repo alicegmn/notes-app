@@ -48,6 +48,15 @@ button {
     font-weight: bold;
 }
 
+#editNote {
+    background-color: rgb(250, 188, 72);
+}
+
+#deleteNote {
+    background-color: tomato;
+}
+
+
 button:hover {
     background-color: #3d6bb3; /* Mörkare grön vid hover */
 }
@@ -61,7 +70,7 @@ h1, h2, h3, h4, h5, h6 {
     text-align: center;
 }
 
-.notes-container {
+#notes-container {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;

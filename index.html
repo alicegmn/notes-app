@@ -3,11 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A simple application for keeping notes.">
     <title>Notes</title>
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="/img/favicon.ico">
     <script src="script.js" defer></script>
 </head>
 <body>
@@ -17,42 +19,46 @@
     <hr></hr>
     <main>
         <section id="newNote">
-            <h2>Write it down!</h2>
-            <form action="" method="post">
+            <h2>Write a note</h2>
+            <form id="noteForm" novalidate>
                 <label for="title">Title*</label>
-                <input type="text" id="title" name="title" required>
+                <input type="text" id="title" name="title" required placeholder="Give your note a title">
         
-                <label for="content">Your note</label>
-                <textarea id="content" name="content" rows="4" required></textarea>
+                <label for="content">The note...</label>
+                <textarea id="content" name="content" rows="10" required placeholder="What's on your mind?"></textarea>
         
-                <label for="category">Category</label>
+                <label for="category">This is a note for</label>
                 <select id="category" name="category" required>
                     <option value="school">School</option>
                     <option value="work">Work</option>
                     <option value="other">Other</option>
                 </select>
-        
+                <div id="error-message" aria-live="assertive"></div>
                 <button type="submit">Post your note</button>
             </form>
         </section>
 
         <section class="notes">
-            <h2>My notes</h2>
-            <div class="notes-container">
-                <article id="schoolNote" class="note">
-                    <h3>Note for school example</h3>
-                    <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quidem commodi repellendus, provident libero error fugit eveniet porro a blanditiis deserunt nostrum possimus molestiae aliquam fuga expedita minus mollitia eaque natus.</p>
-                </article>
-                <article id="workNote" class="note">
-                <h3>Note for work example</h3>
-                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Culpa quia possimus perferendis quisquam facilis alias deleniti, porro ullam vero. Inventore atque non quia maiores minima quis ex officiis velit pariatur?</p>
-                </article>
-                <article id="otherNote" class="note">
-                    <h3>Note for something else example</h3>
-                    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Officiis quaerat harum architecto sapiente dolore tempora, recusandae perferendis dolor impedit nemo aspernatur eos illum, doloribus culpa mollitia reprehenderit ex iste sequi.</p>
-                </article>
+            <h2>Notepad</h2>
+            <div id="sortOptionsContainer">
+                <label for="sortOptions">Sort by:</label>
+                <select id="sortOptions">
+                    <option value="timestamp">Date</option>
+                    <option value="title">Title</option>
+                </select>
+                <button id="sortButton">Sort</button>
+            </div>
+            </nav>
+            <div id="notes-container" role="region" aria-label="Saved notes">
             </div>
         </section>
+        <section id="settings">
+            <h3>Clear your notepad</h3>
+            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ut incidunt explicabo culpa voluptates illum sit neque totam, corporis voluptatibus expedita repudiandae cum iusto possimus ipsa impedit. Quia modi labore esse?</p>
+            <button id="clearButton">Delete all notes</button>
+
+        </section>
     </main>
+    <footer>Made by <a href="https://github.com/alicegmn" target="_blank">alicegmn</a> 2024</footer>
 </body>
 </html>

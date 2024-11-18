@@ -10,6 +10,10 @@ hr {
     width: 50%;
 }
 
+#sortOptionsContainer {
+    max-width: 500px; /* Maximal bredd */
+}
+
 form {
     background-color: #F2F0EB; /* Ljus bakgrundsfärg */
     border: 1px solid #1C1C1C; /* Ljus grå kant */
@@ -19,6 +23,8 @@ form {
     max-width: 500px; /* Maximal bredd */
     margin: 20px auto; /* Centrera formuläret */
 }
+
+
 
 label {
     display: block; /* Gör etiketter blockelement */
@@ -35,6 +41,10 @@ select {
     border-radius: 5px; /* Rundade hörn */
     margin-bottom: 15px; /* Marginal under fält */
     font-size: 16px; /* Textstorlek */
+}
+
+#error-message {
+    color: tomato;
 }
 
 button {
@@ -93,6 +103,17 @@ h1, h2, h3, h4, h5, h6 {
 
 #otherNote {
     background-color: #8acec6;
+}
+
+footer {
+    background-color: #113a7c;
+    color: aqua;
+    padding: 0;
+    margin-top: 2rem;
+    height: 2rem;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
 }
 
 @media (min-width: 481px) {
